@@ -1,0 +1,22 @@
+FROM python:3.10-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app_test
+
+COPY requirements-test.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements-test.txt
+
+COPY . .
+
+EXPOSE 8502
+
+# Inicializa o banco de testes, dispara o motor simulado em segundo plano (&) e liga o painel na porta 8502
+CMD ["sh", "-c", "python engine_simulada/criar_infraestrutura_teste.py && python engine_simulada/mock_engine_teste.py & python -m streamlit run interface_usuario_teste/dashboard_teste.py --server.port=8502 --server.address=0.0.0.0"]
