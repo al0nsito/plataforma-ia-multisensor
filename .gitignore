@@ -1,0 +1,22 @@
+# Arquivos de Bancos de Dados Locais (Gerados em Runtime)
+*.db
+*.db-journal
+
+# Pastas de Evidências e Capturas de Imagens (Privacidade e LGPD)
+**/evidencias_recortes/
+**/evidencias_simuladas/
+*.jpg
+*.jpeg
+*.png
+
+# Pesos e Modelos de Inteligência Artificial (Downloads automáticos)
+*.pt
+*.onnx
+modelos/
+
+# Ambientes virtuais e cache do Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.streamlit/
