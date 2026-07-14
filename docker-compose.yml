@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  # Serviço 1: Inicializa o Ecossistema de Produção Real com IA
+  sistema_producao:
+    build:
+      context: ./1_SISTEMA_INTEGRAL_PRODUCAO
+      dockerfile: Dockerfile
+    container_name: container_producao_ia
+    ports:
+      - "8501:8501" # Mapeia a porta 8501 do container para a porta 8501 do seu computador
+    volumes:
+      - ./1_SISTEMA_INTEGRAL_PRODUCAO:/app # Sincroniza arquivos locais com o container em tempo real
+
+  # Serviço 2: Inicializa o Ambiente de Teste Isolado e Alheio
+  ambiente_teste:
+    build:
+      context: ./2_AMBIENTE_DE_TESTE_ISOLADO
+      dockerfile: Dockerfile.test
+    container_name: container_teste_simulado
+    ports:
+      - "8502:8502" # Mapeia a simulação de gráficos na porta 8502
+    volumes:
+      - ./2_AMBIENTE_DE_TESTE_ISOLADO:/app_test
